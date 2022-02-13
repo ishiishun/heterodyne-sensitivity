@@ -11,6 +11,9 @@ import matplotlib.pyplot as plt
 import io, requests
 from astropy import units as u
 from jupyter_io import savetable_in_notebook
+import itables
+import itables.options as opt
+itables.init_notebook_mode(all_interactive=True)
 # type aliases
 ArrayLike = Union[np.ndarray, List[float], List[int], float, int]
 # others 
@@ -386,9 +389,8 @@ def make_df_lines_low(lines, df_dTa):
 
 def export_list(df_lines):
     pd.options.display.precision = 3
-    pd.set_option('display.max_columns', 10)
-    print(df_lines)
-
+    opt.lengthMenu = [100]
+    itables.show(df_lines)
     return savetable_in_notebook(df_lines, "MappingSpeed.csv")
 
 
