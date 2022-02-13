@@ -287,7 +287,7 @@ def PlotSurveySpeed(df_dTa, N_beam, dTa_des, dV, df_lines):
     plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, fontsize=12)
     for i in df_lines.index:
         line = i
-        freq = df_lines["Frequency"][i]
+        freq = df_lines["Frequency(GHz)"][i]
         if (freq > 80 and 400 > freq):
             ax.axvline(x = freq, color = 'gray', linestyle = "--", label = 'axvline - full height')
             ax.text(freq+1, 15, line, rotation=90, verticalalignment='center')
@@ -319,7 +319,7 @@ def PlotSurveySpeed2(df_dTa, N_beam, dTa_des, dV, df_lines):
     plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, fontsize=12)
     for i in df_lines.index:
         line = i
-        freq = df_lines["Frequency"][i]
+        freq = df_lines["Frequency(GHz)"][i]
         if (freq > 350 and 500 > freq):
             ax.axvline(x = freq, color = 'gray', linestyle = "--", label = 'axvline - full height')
             ax.text(freq+1, 15, line, rotation=90, verticalalignment='center')
@@ -350,7 +350,7 @@ def PlotSurveySpeedHigh(df_dTa, N_beam, dTa_des, dV, df_lines):
     plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, fontsize=12)
     for i in df_lines.index:
         line = i
-        freq = df_lines["Frequency"][i]
+        freq = df_lines["Frequency(GHz)"][i]
         if (freq > 600):
             ax.axvline(x = freq, color = 'gray', linestyle = "--", label = 'axvline - full height')
             ax.text(freq+1, 150, line, rotation=90, verticalalignment='center')
@@ -363,7 +363,7 @@ def PlotSurveySpeedHigh(df_dTa, N_beam, dTa_des, dV, df_lines):
 
 
 def make_df_lines_low(lines, df_dTa):
-    df_lines = pd.DataFrame.from_dict(lines, orient='index').rename(columns={0:'Frequency'})
+    df_lines = pd.DataFrame.from_dict(lines, orient='index').rename(columns={0:'Frequency(GHz)'})
     # df_lines2 = pd.DataFrame.from_dict(lines2, orient='index').rename(columns={0:'Frequency'})
     df2 = pd.DataFrame()
     for i in df_lines.index:
@@ -371,7 +371,7 @@ def make_df_lines_low(lines, df_dTa):
         freq = np.round(freq,1)
         s = df_dTa[freq:freq]
         if (len(s) == 0):
-            print("%s at %f is out of frequency coverage due to low atmospheric transmission" % (i, df_lines["Frequency"][i]))
+            print("%s at %f is out of frequency coverage due to low atmospheric transmission" % (i, df_lines["Frequency(GHz)"][i]))
             df_lines.drop(i,axis=0,inplace = True)
         else:
             df2 = df2.append(df_dTa[freq:freq])
