@@ -19,6 +19,7 @@ ArrayLike = Union[np.ndarray, List[float], List[int], float, int]
 # others 
 c = 2.99792458e8 #m/s
 EL = 60. #deg.
+pd.options.display.precision = 3
 
 # In[3]:
 
