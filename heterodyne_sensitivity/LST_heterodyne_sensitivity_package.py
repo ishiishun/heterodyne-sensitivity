@@ -100,7 +100,7 @@ def PlotHPBW_LST():
         label="D=30 m (inner)",
     )
 
-
+    ax.vlines(420., 0, 20, color='black', linestyles='dotted')
     ax.set_xlabel("Frequency (GHz)")
     ax.set_ylabel("HPBW (arcsec)")
     ax.set_yscale("linear")
