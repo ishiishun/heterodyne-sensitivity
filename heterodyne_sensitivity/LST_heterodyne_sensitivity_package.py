@@ -389,8 +389,6 @@ def make_df_lines_low(lines, df_dTa):
 
 def export_list(df_lines):
     pd.options.display.precision = 3
-    opt.lengthMenu = [100]
-    itables.show(df_lines)
     return savetable_in_notebook(df_lines, "MappingSpeed.csv")
 
 
