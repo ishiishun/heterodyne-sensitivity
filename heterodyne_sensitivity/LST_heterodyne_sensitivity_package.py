@@ -280,7 +280,7 @@ def PlotSurveySpeed(df_dTa, N_beam, dTa_des, dV, df_lines):
         "EL = {} deg, N_beam = {}, dTa_desired = {} K, dV = {} km/s, area = {} deg^2, Dual polarization".format(EL, int(N_beam), dTa_des, dV, 1),
         fontsize=12,
     )
-    ax.legend()
+    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, fontsize=12)
     for i in df_lines.index:
         line = i
         freq = df_lines["Frequency"][i]
@@ -299,7 +299,8 @@ def PlotSurveySpeed(df_dTa, N_beam, dTa_des, dV, df_lines):
 def PlotSurveySpeed2(df_dTa, N_beam, dTa_des, dV, df_lines):
     fig, ax = plt.subplots(1, 1, figsize=(12, 8))
 
-    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_50m"], label = "LST")
+    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_50m"], color='blue', label = "D=50m")
+    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_30m"], color='green', label = "D=30m")
     ax.set_xlabel("Frequency (GHz)")
     ax.set_ylabel("Survey speed: time for a 1 deg^2 mapping (hr)")
     ax.set_xlim(350, 500)
@@ -311,7 +312,7 @@ def PlotSurveySpeed2(df_dTa, N_beam, dTa_des, dV, df_lines):
         "EL = {} deg, N_beam = {}, dTa_desired = {} K, dV = {} km/s, area = {} deg^2, Dual polarization".format(EL, int(N_beam), dTa_des, dV, 1),
         fontsize=12,
     )
-    ax.legend()
+    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, fontsize=12)
     for i in df_lines.index:
         line = i
         freq = df_lines["Frequency"][i]
@@ -329,7 +330,8 @@ def PlotSurveySpeed2(df_dTa, N_beam, dTa_des, dV, df_lines):
 def PlotSurveySpeedHigh(df_dTa, N_beam, dTa_des, dV, df_lines):
     fig, ax = plt.subplots(1, 1, figsize=(12, 8))
 
-    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_30m"], label = "LST")
+    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_50m"], color='blue', label = "D=50m")
+    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_30m"], color='green', label = "D=30m")
     ax.set_xlabel("Frequency (GHz)")
     ax.set_ylabel("Survey speed: time for a 1 deg^2 mapping (hr)")
     ax.set_xlim(600, 850)
@@ -341,11 +343,11 @@ def PlotSurveySpeedHigh(df_dTa, N_beam, dTa_des, dV, df_lines):
         "EL = {} deg, N_beam = {}, dTa_desired = {} K, dV = {} km/s, area = {} deg^2, Dual polarization".format(EL, int(N_beam), dTa_des, dV, 1),
         fontsize=12,
     )
-    ax.legend()
+    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0, fontsize=12)
     for i in df_lines.index:
         line = i
         freq = df_lines["Frequency"][i]
-        if (freq > 650):
+        if (freq > 600):
             ax.axvline(x = freq, color = 'gray', linestyle = "--", label = 'axvline - full height')
             ax.text(freq+1, 150, line, rotation=90, verticalalignment='center')
 
