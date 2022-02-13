@@ -367,7 +367,7 @@ def make_df_lines_low(lines, df_dTa):
     # df_lines2 = pd.DataFrame.from_dict(lines2, orient='index').rename(columns={0:'Frequency'})
     df2 = pd.DataFrame()
     for i in df_lines.index:
-        freq = df_lines["Frequency"][i]
+        freq = df_lines["Frequency(GHz)"][i]
         freq = np.round(freq,1)
         s = df_dTa[freq:freq]
         if (len(s) == 0):
@@ -375,15 +375,15 @@ def make_df_lines_low(lines, df_dTa):
             df_lines.drop(i,axis=0,inplace = True)
         else:
             df2 = df2.append(df_dTa[freq:freq])
-    df_lines["HPBW_50m(arcsec)"] = df2["HPBW_50m"].values
-    df_lines["HPBW_30m(arcsec)"] = df2["HPBW_30m"].values
-    df_lines["Tsys"] = df2["Tsys_50m"].values
+    df_lines["HPBW_50m(\")"] = df2["HPBW_50m"].values
+    df_lines["HPBW_30m(\")"] = df2["HPBW_30m"].values
+    df_lines["Tsys(K)"] = df2["Tsys_50m"].values
     #df_lines["dTa"] = df2["dTa"].values
     #df_lines["t_total"] = df2["t_total"].values
     #df_lines["map_size"] = df2["map_size"].values
     #df_lines["area"] = df2["area"].values
-    df_lines["survey_speed_50m(hr)"] = df2["t_total_dTa_des_1deg2_50m"].values
-    df_lines["survey_speed_30m(hr)"] = df2["t_total_dTa_des_1deg2_30m"].values
+    df_lines["SurveySpeed_50m(hr)"] = df2["t_total_dTa_des_1deg2_50m"].values
+    df_lines["SurveySspeed_30m(hr)"] = df2["t_total_dTa_des_1deg2_30m"].values
     
     return df_lines
 
