@@ -74,7 +74,7 @@ def LST_HPBW(F: ArrayLike, D = 50.) -> ArrayLike:
     wavelength =  c/F
     return 1.21 * wavelength/D
 
-def PlotHPBW_LST():
+def PlotHPBW_LST(D2):
     """Plot half power beam width of LST.
 
     Returns
@@ -97,11 +97,11 @@ def PlotHPBW_LST():
 
     ax.plot(
         F / 1e9,
-        LST_HPBW(F, 30) * 180 * 60 * 60 / np.pi,
+        LST_HPBW(F, D2) * 180 * 60 * 60 / np.pi,
         linewidth=1,
         color="g",
         alpha=1,
-        label="D=30 m (inner)",
+        label="D=%.1f m"%(D2),
     )
 
     ax.axvline(x = 420., color = 'gray', linestyle = "--")
@@ -235,7 +235,7 @@ def get_dTa_30m(F,                      # frequency, in Hz
 # In[8]:
 
 
-def get_dTa(df_Tsyss, dV, N_beam, dTa_des, D1=50., D2= 30.):
+def get_dTa(df_Tsyss, dV, N_beam, dTa_des, D2, D1=50.):
     F = df_Tsyss.index*1.e9
     HPBW_50m = LST_HPBW(F, D=D1) * 180 * 60 * 60 / np.pi
     HPBW_30m = LST_HPBW(F, D=D2) * 180 * 60 * 60 / np.pi
@@ -254,7 +254,7 @@ def get_dTa(df_Tsyss, dV, N_beam, dTa_des, D1=50., D2= 30.):
 def plot_Sensitivity(df_dTa):
     fig, ax = plt.subplots(1, 1, figsize=(12, 6))
 
-    ax.plot(df_dTa.index, df_dTa["dTa_50m"], label = "LST")
+    ax.plot(df_dTa.index, df_dTa["dTa_50m"], label = "D = 50 m")
     ax.set_xlabel("Frequency (GHz)")
     ax.set_ylabel("1-sigma sensitivity, dTa* (K)")
     ax.set_ylim(0, 0.4)
@@ -271,10 +271,11 @@ def plot_Sensitivity(df_dTa):
 # In[10]:
 
 
-def PlotSurveySpeed(df_dTa, N_beam, dTa_des, dV, df_lines):
+def PlotSurveySpeed(df_dTa, N_beam, dTa_des, dV, df_lines, D2):
     fig, ax = plt.subplots(1, 1, figsize=(12, 8))
 
-    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_50m"], label = "LST")
+    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_50m"], color='blue', label = "D=50 m")
+    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_30m"], color='green', label = "D=%.1f m"%(D2))
     ax.set_xlabel("Frequency (GHz)")
     ax.set_ylabel("Survey speed: time for a 1 deg^2 mapping (hr)")
     ax.set_xlim(80, 400)
@@ -301,11 +302,11 @@ def PlotSurveySpeed(df_dTa, N_beam, dTa_des, dV, df_lines):
 # In[11]:
 
 
-def PlotSurveySpeed2(df_dTa, N_beam, dTa_des, dV, df_lines):
+def PlotSurveySpeed2(df_dTa, N_beam, dTa_des, dV, df_lines, D2):
     fig, ax = plt.subplots(1, 1, figsize=(12, 8))
 
     ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_50m"], color='blue', label = "D=50m")
-    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_30m"], color='green', label = "D=30m")
+    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_30m"], color='green', label = "D=%.1f m"%(D2))
     ax.set_xlabel("Frequency (GHz)")
     ax.set_ylabel("Survey speed: time for a 1 deg^2 mapping (hr)")
     ax.set_xlim(350, 500)
@@ -332,11 +333,11 @@ def PlotSurveySpeed2(df_dTa, N_beam, dTa_des, dV, df_lines):
 # In[12]:
 
 
-def PlotSurveySpeedHigh(df_dTa, N_beam, dTa_des, dV, df_lines):
+def PlotSurveySpeedHigh(df_dTa, N_beam, dTa_des, dV, df_lines, D2):
     fig, ax = plt.subplots(1, 1, figsize=(12, 8))
 
     ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_50m"], color='blue', label = "D=50m")
-    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_30m"], color='green', label = "D=30m")
+    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_30m"], color='green', label = "D=%.1f m"%(D2))
     ax.set_xlabel("Frequency (GHz)")
     ax.set_ylabel("Survey speed: time for a 1 deg^2 mapping (hr)")
     ax.set_xlim(600, 850)
@@ -377,14 +378,14 @@ def make_df_lines_low(lines, df_dTa):
         else:
             df2 = df2.append(df_dTa[freq:freq])
     df_lines["HPBW_50m(\")"] = df2["HPBW_50m"].values
-    df_lines["HPBW_30m(\")"] = df2["HPBW_30m"].values
+    df_lines["HPBW_D2(\")"] = df2["HPBW_30m"].values
     df_lines["Tsys(K)"] = df2["Tsys_50m"].values
     #df_lines["dTa"] = df2["dTa"].values
     #df_lines["t_total"] = df2["t_total"].values
     #df_lines["map_size"] = df2["map_size"].values
     #df_lines["area"] = df2["area"].values
     df_lines["SurveySpeed_50m(hr)"] = df2["t_total_dTa_des_1deg2_50m"].values
-    df_lines["SurveySspeed_30m(hr)"] = df2["t_total_dTa_des_1deg2_30m"].values
+    df_lines["SurveySspeed_D2(hr)"] = df2["t_total_dTa_des_1deg2_30m"].values
     
     return df_lines
 
