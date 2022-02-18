@@ -275,7 +275,7 @@ def PlotSurveySpeed(df_dTa, N_beam, dTa_des, dV, df_lines, D2):
     fig, ax = plt.subplots(1, 1, figsize=(12, 8))
 
     ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_50m"], color='blue', label = "D=50 m")
-    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_30m"], color='green', label = "D=%.1f m"%(D2))
+    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_30m"], color='green', label = "D2=%.1f m"%(D2))
     ax.set_xlabel("Frequency (GHz)")
     ax.set_ylabel("Survey speed: time for a 1 deg^2 mapping (hr)")
     ax.set_xlim(80, 400)
@@ -306,7 +306,7 @@ def PlotSurveySpeed2(df_dTa, N_beam, dTa_des, dV, df_lines, D2):
     fig, ax = plt.subplots(1, 1, figsize=(12, 8))
 
     ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_50m"], color='blue', label = "D=50m")
-    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_30m"], color='green', label = "D=%.1f m"%(D2))
+    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_30m"], color='green', label = "D2=%.1f m"%(D2))
     ax.set_xlabel("Frequency (GHz)")
     ax.set_ylabel("Survey speed: time for a 1 deg^2 mapping (hr)")
     ax.set_xlim(350, 500)
@@ -337,7 +337,7 @@ def PlotSurveySpeedHigh(df_dTa, N_beam, dTa_des, dV, df_lines, D2):
     fig, ax = plt.subplots(1, 1, figsize=(12, 8))
 
     ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_50m"], color='blue', label = "D=50m")
-    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_30m"], color='green', label = "D=%.1f m"%(D2))
+    ax.plot(df_dTa.index, df_dTa["t_total_dTa_des_1deg2_30m"], color='green', label = "D2=%.1f m"%(D2))
     ax.set_xlabel("Frequency (GHz)")
     ax.set_ylabel("Survey speed: time for a 1 deg^2 mapping (hr)")
     ax.set_xlim(600, 850)
